@@ -46,73 +46,58 @@ ul.obr img {
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 				<section>
-					<h2>Realizacja w układzie FPGA uniwersalnego nadajnika / odbiornika pakietów USB o pełnej prędkości (12 Mbps)</h2>
+					<h2>System autoryzacji pracowników i badanie czasu pracy</h2>
 					<p><em></em></p>
-					<p class = "down"><small><b></b><br/>
+					<p class = "down"><b></b><br/>
 					Mikołaj Jermakowicz 200690<br />
-					200690@student.pwr.edu.pl<br />
-					</small>
+					Kamil Machnicki 200752<br />
 					</p>
 				</section>
 
 				<section>
 					<section>
-						<h3>Schemat projektu</h3>
-						<img src ="uklad.png" width="85%" height="auto" style="border: 0px">
+                                            <h3>Przedstawienie projektu</h3>
+                                            <ul>
+						<li class="green">System autoryzacji pracowników dwoma metodami:
+                                                    <ul>
+                                                        <li class="blue">Czytnik kart zbliżedniowych RFID</li>
+                                                        <li class="blue">Klawiatura do wpisywania kodu</li>
+                                                    </ul>
+						</li>
+						<li class="green">Baza danych zbierająca informacje o pracownikach</li>
+						<li class="green">Panel do wyświetlania informacji</li>
+                                            </ul>
 					</section>
 				</section>
 
 				<section>
-					<h3>Postęp w projekcie</h3>
-					<ol>
-					<li>Moduł odbierający
-					<ul>
-						<li class="green">Dekodowanie pakietów</li>
-						<li class="green">Rozpoznawanie pakietów</li>
-						<li class="blue">Walidacja sum kontorlnych CRC</li>
-						<li class="green">Przekazywanie pakietów</li>
-					</ul></li>
-					<li>Moduł nadający
-					<ul>
-						<li class="green">Kodowanie pakietów</li>
-						<li class="blue">Wyznaczanie sum kontrolnych CRC</li>
-						<li class="green">Wysyłanie pakietów</li>
-					</ul></li>
-					<li>Moduł sterujący
-					<ul>
-						<li class="green">Wypisywanie pakietów na ekran VGA</li>
-						<li class="black">Zestawianie połączenia z komputerem</li>
-						<li class="black">Komunikacja z komputerem</li>
-					</ul></li>
-					</ol>
-					
+					<h3>Funkcjonalności</h3>
+					podstawowe i dodatkowe
 				</section>
 				
 				<section>
-					<h3>Technologie</h3>
-					<ol>
-					<ul>
-						<li class="black">Układ FPGA Spartan 3E</li>
-						<li class="black">VHDL</li>
-					</ul></li>
-					</ol>
-					
+					<h3>Oprogramowanie</h3>
+					linux distro, db, front-end
 				</section>
 				
 				<section>
-					<h2>Dziękuję za uwagę!</h2>
-				</section>
-				
-				<section>
-					<h2>Realizacja w układzie FPGA uniwersalnego nadajnika / odbiornika pakietów USB o pełnej prędkości (12 Mbps)</h2>
-					<p><em></em></p>
-					<p class = "down"><small><b></b><br/>
-					Mikołaj Jermakowicz 200690<br />
-					200690@student.pwr.edu.pl<br />
-					</small>
-					</p>
+					<h3>Sprzęt</h3>
+                                            <ul>
+                                                <li class="green">Czytnik RFID z anteną MF RC522 13,56MHz, SPI</li>
+                                                <li class="green">Klawiatura membranowa 4x4, GPIO</li>
+						<li class="green">Raspberry Pi</li>
+                                            </ul>
+					<img src ="sprzet2.png" width="85%" height="auto" style="border: 0px">
 				</section>
 
+                                <section>
+					<h2>System autoryzacji pracowników i badanie czasu pracy</h2>
+					<p><em></em></p>
+					<p class = "down"><b></b><br/>
+					Mikołaj Jermakowicz 200690<br />
+					Kamil Machnicki 200752<br />
+					</p>
+				</section>
 			</div>
 
 		</div>
