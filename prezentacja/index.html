@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+
+	<head>
+		<meta charset="utf-8">
+
+		<title>Realizacja w układzie FPGA uniwersalnego nadajnika / odbiornika pakietów USB o pełnej prędkości (12 Mbps)</title>
+
+		<meta name="description" content="A framework for easily creating beautiful presentations using HTML">
+		<meta name="author" content="Hakim El Hattab">
+
+		<meta name="apple-mobile-web-app-capable" content="yes" />
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+
+		<link rel="stylesheet" href="css/reveal_pwr.css">
+		<link rel="stylesheet" href="css/theme/pwr.css" id="theme">
+
+		<!-- Code syntax highlighting -->
+		<link rel="stylesheet" href="lib/css/zenburn.css">
+
+		<style>
+ul.obr img {
+    vertical-align: middle;
+}
+        </style>
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+
+		<!--[if lt IE 9]>
+		<script src="lib/js/html5shiv.js"></script>
+		<![endif]-->
+	</head>
+
+	<body>
+
+		<div class="reveal">
+
+			<!-- Any section element inside of this container is displayed as a slide -->
+			<div class="slides">
+				<section>
+					<h2>Realizacja w układzie FPGA uniwersalnego nadajnika / odbiornika pakietów USB o pełnej prędkości (12 Mbps)</h2>
+					<p><em></em></p>
+					<p class = "down"><small><b></b><br/>
+					Mikołaj Jermakowicz 200690<br />
+					200690@student.pwr.edu.pl<br />
+					</small>
+					</p>
+				</section>
+
+				<section>
+					<section>
+						<h3>Schemat projektu</h3>
+						<img src ="uklad.png" width="85%" height="auto" style="border: 0px">
+					</section>
+				</section>
+
+				<section>
+					<h3>Postęp w projekcie</h3>
+					<ol>
+					<li>Moduł odbierający
+					<ul>
+						<li class="green">Dekodowanie pakietów</li>
+						<li class="green">Rozpoznawanie pakietów</li>
+						<li class="blue">Walidacja sum kontorlnych CRC</li>
+						<li class="green">Przekazywanie pakietów</li>
+					</ul></li>
+					<li>Moduł nadający
+					<ul>
+						<li class="green">Kodowanie pakietów</li>
+						<li class="blue">Wyznaczanie sum kontrolnych CRC</li>
+						<li class="green">Wysyłanie pakietów</li>
+					</ul></li>
+					<li>Moduł sterujący
+					<ul>
+						<li class="green">Wypisywanie pakietów na ekran VGA</li>
+						<li class="black">Zestawianie połączenia z komputerem</li>
+						<li class="black">Komunikacja z komputerem</li>
+					</ul></li>
+					</ol>
+					
+				</section>
+				
+				<section>
+					<h3>Technologie</h3>
+					<ol>
+					<ul>
+						<li class="black">Układ FPGA Spartan 3E</li>
+						<li class="black">VHDL</li>
+					</ul></li>
+					</ol>
+					
+				</section>
+				
+				<section>
+					<h2>Dziękuję za uwagę!</h2>
+				</section>
+				
+				<section>
+					<h2>Realizacja w układzie FPGA uniwersalnego nadajnika / odbiornika pakietów USB o pełnej prędkości (12 Mbps)</h2>
+					<p><em></em></p>
+					<p class = "down"><small><b></b><br/>
+					Mikołaj Jermakowicz 200690<br />
+					200690@student.pwr.edu.pl<br />
+					</small>
+					</p>
+				</section>
+
+			</div>
+
+		</div>
+
+		<script src="lib/js/head.min.js"></script>
+		<script src="js/reveal.js"></script>
+
+		<script>
+
+			// Full list of configuration options available at:
+			// https://github.com/hakimel/reveal.js#configuration
+			Reveal.initialize({
+				controls: true,
+				progress: true,
+				history: false,
+				center: true,
+
+				transition: 'slide', // none/fade/slide/convex/concave/zoom
+
+				// Optional reveal.js plugins
+				dependencies: [
+					{ src: 'lib/js/classList.js', condition: function() { return !document.body.classList; } },
+					{ src: 'plugin/markdown/marked.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/markdown/markdown.js', condition: function() { return !!document.querySelector( '[data-markdown]' ); } },
+					{ src: 'plugin/highlight/highlight.js', async: true, condition: function() { return !!document.querySelector( 'pre code' ); }, callback: function() { hljs.initHighlightingOnLoad(); } },
+					{ src: 'plugin/zoom-js/zoom.js', async: true },
+					{ src: 'plugin/notes/notes.js', async: true }
+				]
+			});
+
+		</script>
+
+	</body>
+</html>
