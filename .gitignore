@@ -1,0 +1,13 @@
+# Linux
+*~
+
+# Linux trash folder which might appear on any partition or disk
+.Trash-*
+
+# Swap and other temporary files
+*.swp
+*-swp
+*.swo
+*.hr3.*
+*.user
+*.autosave
