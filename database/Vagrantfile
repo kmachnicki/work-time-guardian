@@ -1,0 +1,47 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+# All Vagrant configuration is done below. The "2" in Vagrant.configure
+# configures the configuration version (we support older styles for
+# backwards compatibility). Please don't change it unless you know what
+# you're doing.
+Vagrant.configure(2) do |config|
+  # The most common configuration options are documented and commented below.
+  # For a complete reference, please see the online documentation at
+  # https://docs.vagrantup.com.
+
+  # Every Vagrant development environment requires a box. You can search for
+  # boxes at https://atlas.hashicorp.com/search.
+  config.vm.box = "binarydata/debian-jessie"
+
+  config.vm.provider "virtualbox" do |vb|
+      vb.gui = true
+  end
+
+  config.vm.network "public_network", ip: "192.168.16.44", guest: 3000, host: 3000, auto_correct: true
+
+  config.vm.provision "shell", privileged: true, inline: <<-SHELL
+    apt-get update
+    apt-get install postgresql postgresql-contrib postgis gpsbabel git libsqlite3-dev libreadline-dev libpq-dev libbz2-dev zlib1g-dev libpqxx-dev libzip-dev -y
+    echo -ne "alamakota\nalamakota" | su - postgres -c 'createuser -P -e wbudowane'
+    su - postgres -c 'createdb -e -O wbudowane wbudowane'
+	su - postgres -c 'psql wbudowane < /vagrant/czaspracyBD.sql'
+  SHELL
+
+  config.vm.provision "shell", privileged: false, inline: <<-SHELL
+    git clone https://github.com/yyuu/pyenv.git ~/.pyenv
+    echo 'export PYENV_ROOT="$HOME/.pyenv"' >> ~/.bashrc
+    echo 'export PATH="$PYENV_ROOT/bin:$PATH"' >> ~/.bashrc
+    echo 'eval "$(pyenv init -)"' >> ~/.bashrc
+
+    export PYENV_ROOT="$HOME/.pyenv"
+    export PATH="$PYENV_ROOT/bin:$PATH"
+    eval "$(pyenv init -)"
+    pyenv install 3.4.3
+    pyenv rehash
+    pyenv local 3.4.3
+    pyenv global 3.4.3
+    pip install --upgrade pip
+    pip install psycopg2
+  SHELL
+end
