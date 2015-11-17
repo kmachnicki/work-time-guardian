@@ -26,6 +26,9 @@ Vagrant.configure(2) do |config|
     echo -ne "alamakota\nalamakota" | su - postgres -c 'createuser -P -e wbudowane'
     su - postgres -c 'createdb -e -O wbudowane wbudowane'
 	su - postgres -c 'psql wbudowane < /vagrant/czaspracyBD.sql'
+	su - postgres -c 'psql wbudowane -c "GRANT ALL ON TABLE Employee TO wbudowane;"'
+	su - postgres -c 'psql wbudowane -c "GRANT ALL ON TABLE Passage TO wbudowane;"'
+	su - postgres -c 'psql wbudowane -c "GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public to wbudowane;"'
   SHELL
 
   config.vm.provision "shell", privileged: false, inline: <<-SHELL
