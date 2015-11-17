@@ -1,25 +1,55 @@
 #!/usr/bin/env python
 
 """
-Module for handling RFID
+Module for handling embedded application
 """
 
+import RPi.GPIO as GPIO
+import logging
 import time
-import psycopg2
 
-def createDbConnection():
-    return psycopg2.connect("dbname=wbudowane user=wbudowane password=alamakota")
+import database
+import nfc
 
-def addNewTimestampToDb(dbConnection, employeeId):
-    timestamp = psycopg2.TimestampFromTicks(int(time.time()))
-    cursor = dbConnection.cursor()
-    cursor.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) VALUES (%s, %s);", employeeId, timestamp)
-    cursor.commit()
+GREEN_LED = 16
+RED_RED = 18
+
+def ledOn(led):
+    GPIO.output(led, GPIO.HIGH)
+
+def ledOff(led):
+    GPIO.output(led, GPIO.LOW)
+
+def initGpio():
+    GPIO.setmode(GPIO.BOARD)
+    GPIO.setup(GREEN_LED, GPIO.OUT)
+    GPIO.setup(RED_RED, GPIO.OUT)
 
 def main():
-    dbConnection = createDbConnection()
+    database = Database()
+    database.createConnection()
 
-    #addNewTimestampToDb(dbConnection, employeeId)
+    GPIO.cleanup()
 
-if __name__=='__main__':
+    try:
+        initGpio()
+        while True:
+            tagId = nfc.readNfc()
+            employeeId = getEmployeeIdFromTagId(tagId)
+            if (employeeId != None):
+                database.addNewTimestampOfEmployeeId(employeeId)
+                ledOn(GREEN_LED)
+                time.sleep(3)
+                ledOff(GREEN_LED)
+            else:
+                ledOn(RED_RED)
+                time.sleep(3)
+                ledOff(RED_RED)
+
+    except KeyboardInterrupt:
+        logging.info("Closing application")
+        GPIO.cleanup()
+        database.closeConnection()
+
+if __name__ == '__main__':
     main()
