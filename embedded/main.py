@@ -26,18 +26,17 @@ def initGpio():
     GPIO.setup(RED_RED, GPIO.OUT)
 
 def main():
-    database = Database()
-    database.createConnection()
-
-    GPIO.cleanup()
+    db = database.Database()
+    db.createConnection()
 
     try:
         initGpio()
         while True:
             tagId = nfc.readNfc()
             employeeId = getEmployeeIdFromTagId(tagId)
+            employeeId = 3
             if (employeeId != None):
-                database.addNewTimestampOfEmployeeId(employeeId)
+                db.addNewTimestampOfEmployeeId(employeeId)
                 ledOn(GREEN_LED)
                 time.sleep(3)
                 ledOff(GREEN_LED)
@@ -49,7 +48,7 @@ def main():
     except KeyboardInterrupt:
         logging.info("Closing application")
         GPIO.cleanup()
-        database.closeConnection()
+        db.closeConnection()
 
 if __name__ == '__main__':
     main()

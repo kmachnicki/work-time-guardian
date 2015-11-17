@@ -14,7 +14,7 @@ class Database():
     def __init__(self):
         self.connectionCredentials = "dbname=" + DB_NAME + " user=" + DB_USER + " password=" + DB_PASS
 
-    def createConnection():
+    def createConnection(self):
         logging.info("Connecting to database: %s@%s", DB_USER, DB_NAME)
         try:
             self.connection = psycopg2.connect(self.connectionCredentials)
@@ -22,7 +22,7 @@ class Database():
         except:
             logging.error("Unable to connect to database")
 
-    def closeConnection():
+    def closeConnection(self):
         logging.info("Closing database connection")
         try:
             self.cursor.close()
@@ -30,21 +30,21 @@ class Database():
         except:
             logging.error("Error while closing database connection")
 
-    def getEmployeeIdFromTagId(tagId):
+    def getEmployeeIdFromTagId(self, tagId):
         try:
             self.cursor.execute("SELECT Employee_ID FROM Employee WHERE Tag_ID = %s ;", [tagId])
             employees = self.cursor.fetchall()
             noOfEmployees = len(employees)
             if (noOfEmployees > 1):
                 logging.warn("Found multiple employees using the same card: %s", tagId)
-            else if(noOfEmployees == 0):
+            elif(noOfEmployees == 0):
                 logging.info("No employee found with this tag: %s", tagId)
             else:
                 return employees[0][0]
         except:
             logging.error("Error while fetching an employee")
 
-    def addNewTimestampOfEmployeeId(dbConnection, employeeId):
+    def addNewTimestampOfEmployeeId(self, dbConnection, employeeId):
         timestamp = psycopg2.TimestampFromTicks(int(time.time()))
         logging.info("Adding new card read to Database: employeeId: %s, timestamp: %s", employeeId, timestamp)
         try:
