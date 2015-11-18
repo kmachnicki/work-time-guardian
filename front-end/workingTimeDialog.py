@@ -13,12 +13,22 @@ class WorkingTimeDialog(QMainWindow, Ui_WorkingTime):
         self._refreshTimer = QtCore.QTimer(self)
         self._refreshTimer.start(500)
         self._refreshTimer.timeout.connect(self.RefreshPresentTable)
+        self._fromTimeEdit.setDateTime(datetime.now())
+        self._toTimeEdit.setDateTime(datetime.now())
         self._toTimeEdit.dateTimeChanged.connect(self.RefreshWorkedTimeTable)
         self._fromTimeEdit.dateTimeChanged.connect(self.RefreshWorkedTimeTable)
- #       cur = self.conn.cursor()
- #       cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
- #                   "VALUES (2, TIMESTAMP '2011-05-17 21:37:38');")
- #       self.conn.commit()
+        self._addUserButton.clicked.connect(self.AddUser)
+        self._tableTimeWorked.setColumnCount(3)
+        self._tableTimeWorked.setColumnWidth(2, 166)
+        self._tableTimeWorked.setHorizontalHeaderLabels(["First Name", "Last Name", "Worked Time"])
+        self._tablePresentEmployee.setColumnCount(3)
+        self._tablePresentEmployee.setColumnWidth(2, 154)
+        self._tablePresentEmployee.setHorizontalHeaderLabels(["First Name", "Last Name", "Arrival Time"])
+
+        cur = self.conn.cursor()
+        cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
+                    "VALUES (1, TIMESTAMP '2011-05-20 16:36:38');")
+        self.conn.commit()
 
     def GetPresentEmployees(self):
         cur = self.conn.cursor()
@@ -36,7 +46,7 @@ class WorkingTimeDialog(QMainWindow, Ui_WorkingTime):
 
     def RefreshPresentTable(self):
         present_employees = self.GetPresentEmployees()
-        self._tablePresentEmployee.setColumnCount(3)
+
         self._tablePresentEmployee.setRowCount(len(present_employees))
         i = int(0)
         for employee in present_employees:
@@ -54,7 +64,7 @@ class WorkingTimeDialog(QMainWindow, Ui_WorkingTime):
         result = []
         for row in rows:
             id = row[0]
-            cur.execute("SELECT timestamp FROM Passage WHERE EmployeeEmployee_ID = %s AND timestamp > %s OR timestamp < %s;", [id, from_time, from_time])
+            cur.execute("SELECT timestamp FROM Passage WHERE EmployeeEmployee_ID = %s AND timestamp > %s AND timestamp < %s;", [id, from_time, to_time])
             passages = cur.fetchall()
             count = len(passages)
             i = int(1)
@@ -72,7 +82,7 @@ class WorkingTimeDialog(QMainWindow, Ui_WorkingTime):
 
     def RefreshWorkedTimeTable(self):
         worked_time = self.GetWorkedTime()
-        self._tableTimeWorked.setColumnCount(3)
+
         self._tableTimeWorked.setRowCount(len(worked_time))
         i = int(0)
         for employee in worked_time:
@@ -81,11 +91,19 @@ class WorkingTimeDialog(QMainWindow, Ui_WorkingTime):
             self._tableTimeWorked.setItem(i, 2, QtWidgets.QTableWidgetItem(str(employee[2])))
             i += 1
 
+    def AddUser(self):
+        cur = self.conn.cursor()
+        name = self._firstNameEdit.text()
+        cur.execute("INSERT INTO Employee(First_Name, Last_Name, Email, Password, Tag_ID) "
+                    "VALUES (%s,%s,%s,%s,%s);", [self._firstNameEdit.text(), self._lastNameEdit.text(),
+                                              self._emailEdit.text(), self._passwordEdit.text(), self._tagIdEdit.text()])
+        self.conn.commit()
+
         #cur = self.conn.cursor()
  #       cur.execute("INSERT INTO Employee(First_Name, Last_Name, Email, Password) "
   #                  "VALUES ('aa', 'bb', 'cc', 'dd');")
-        #cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
- #                   "VALUES (3, TIMESTAMP '2011-05-16 15:36:38');")
+        cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
+                    "VALUES (3, TIMESTAMP '2011-05-16 15:36:38');")
  #       cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
  #                   "VALUES (1, TIMESTAMP '2011-05-16 15:39:38');")
 #        cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
