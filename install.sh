@@ -9,7 +9,7 @@ echo "[2/9] Upgrading the system"
 sudo apt-get upgrade -y
 
 echo "[3/9] Installing PostgreSQL packages"
-sudo apt-get install postgresql postgresql-contrib postgis gpsbabel git libsqlite3-dev libreadline-dev libpq-dev libbz2-dev zlib1g-dev libpqxx-dev libzip-dev -y
+sudo apt-get install postgresql postgresql-contrib postgresql-common postgresql-client-common postgis gpsbabel git libsqlite3-dev libreadline-dev libpq-dev libbz2-dev zlib1g-dev libpqxx-dev libzip-dev -y
 
 echo "[4/9] Installing Python packages"
 sudo apt-get install python python-dev libjpeg-dev libfreetype6-dev python-setuptools python-pip -y
