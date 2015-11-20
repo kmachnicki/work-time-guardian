@@ -4,31 +4,34 @@ Module for connecting and handling requests to the database
 
 import time
 import psycopg2
-import logging
+import logger
 
+DB_HOST = "localhost"
 DB_NAME = "wbudowane"
 DB_USER = "wbudowane"
 DB_PASS = "alamakota"
 
 class Database():
     def __init__(self):
-        self.connectionCredentials = "dbname=" + DB_NAME + " user=" + DB_USER + " password=" + DB_PASS
+        self.connectionCredentials = "host=" + DB_HOST + " dbname=" + DB_NAME + " user=" + DB_USER + " password=" + DB_PASS
 
     def createConnection(self):
-        logging.info("Connecting to database: %s@%s", DB_USER, DB_NAME)
+        logger.info("Connecting to database: " + DB_USER + "@" + DB_NAME)
         try:
             self.connection = psycopg2.connect(self.connectionCredentials)
             self.cursor = self.connection.cursor()
-        except:
-            logging.error("Unable to connect to database")
+            self.cursor.execute("INSERT INTO Employee(First_Name, Last_Name, Email, Password, Tag_ID) "
+            "VALUES (%s,%s,%s,%s,%s);", ["Marian", "Kowalski", "marian.kowalski@gmail.com", "test123", "3119228225113"])
+        except Exception, e:
+            logger.error("Unable to connect to database: " + str(e))
 
     def closeConnection(self):
-        logging.info("Closing database connection")
+        logger.info("Closing database connection")
         try:
             self.cursor.close()
             self.connection.close()
-        except:
-            logging.error("Error while closing database connection")
+        except Exception, e:
+            logger.error("Error while closing database connection: " + str(e))
 
     def getEmployeeIdFromTagId(self, tagId):
         try:
@@ -36,19 +39,19 @@ class Database():
             employees = self.cursor.fetchall()
             noOfEmployees = len(employees)
             if (noOfEmployees > 1):
-                logging.warn("Found multiple employees using the same card: %s", tagId)
+                logger.warn("Found multiple employees using the same card: " + tagId)
             elif(noOfEmployees == 0):
-                logging.info("No employee found with this tag: %s", tagId)
+                logger.info("No employee found with this tag: " + tagId)
             else:
                 return employees[0][0]
-        except:
-            logging.error("Error while fetching an employee")
+        except Exception, e:
+            logger.error("Error while fetching an employee: " + str(e))
 
-    def addNewTimestampOfEmployeeId(self, dbConnection, employeeId):
+    def addNewTimestampOfEmployeeId(self, employeeId):
         timestamp = psycopg2.TimestampFromTicks(int(time.time()))
-        logging.info("Adding new card read to Database: employeeId: %s, timestamp: %s", employeeId, timestamp)
+        logger.info("Adding new card read to Database: employeeId: " + str(employeeId) + ", timestamp: " + str(timestamp))
         try:
             self.cursor.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) VALUES (%s, %s);", (employeeId, timestamp))
-            self.cursor.commit()
-        except:
-            logging.error("Error while adding to database")
+            self.connection.commit()
+        except Exception, e:
+            logger.error("Error while adding to database: " + str(e))
