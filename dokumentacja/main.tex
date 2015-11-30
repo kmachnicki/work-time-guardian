@@ -1,0 +1,106 @@
+\documentclass[eng,printmode]{mgr}
+%opcje klasy dokumentu mgr.cls zostały opisane w dołączonej instrukcji
+
+%poniżej deklaracje użycia pakietów, usunąć to co jest niepotrzebne
+\usepackage{polski} %przydatne podczas składania dokumentów w j. polskim
+%\usepackage[polish]{babel}%alternatywnie do pakietu polski, wybrać jeden z nich
+\usepackage[utf8x]{inputenc} %kodowanie znaków, zależne od systemu
+\usepackage[T1]{fontenc} %poprawne składanie polskich czcionek
+
+%pakiety do grafiki
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage{psfrag}
+\usepackage{epstopdf}
+
+\usepackage{indentfirst}
+%pozycjonowanie grafiki
+\usepackage{float}
+\graphicspath{ {figures/} }
+
+%pakiety dodające dużo dodatkowych poleceń matematycznych
+\usepackage{amsmath}
+\usepackage{amsfonts}
+
+%pakiety wspomagające i poprawiające składanie tabel
+\usepackage{supertabular}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{hhline}
+
+%pakiet wypisujący na marginesie etykiety równań i rysunków zdefiniowanych przez \label{}, chcąc wygenerować finalną wersję dokumentu wystarczy usunąć poniższą linię
+\usepackage{showlabels}
+
+%pozostałe ustawienia
+\usepackage[hidelinks,pagebackref=true,backref=false]{hyperref}
+%\usepackage{lscape}
+%\usepackage{pdflscape}
+\usepackage{rotating}
+\usepackage{changepage}
+
+%ustawienia spisu treści
+%\setcounter{tocdepth}{3}
+%\setcounter{secnumdepth}{3}
+
+%dane do złożenia strony tytułowej
+\title{Badanie czasu pracy}
+\engtitle{Work time guardian}
+\author{Mikołaj Jermakowicz, Kamil Machnicki}
+\supervisor{dr inż. Marek Woda}
+%\date{2008} %standardowo u dołu strony tytułowej umieszczany jest bieżący rok, to polecenie pozwala wstawić dowolny rok
+
+\field{Informatyka (INF)}
+\specialisation{Inżynieria Internetowa (INT)}
+
+\makeatletter
+\hypersetup{
+	pdfstartview={XYZ null null 1.00},
+	pdfpagemode=UseNone,
+	pdfauthor={\@author},
+	pdftitle={\@title},
+	pdfsubject={\@naglowek},
+	pdfcreator={pdf\LaTeX}, 
+	pdfproducer={TeXstudio}
+}
+\makeatother
+
+\let\origappendix\appendix % save the existing appendix command
+\renewcommand\appendix{\clearpage\pagenumbering{Roman}\origappendix}
+\usepackage{etoolbox}
+\apptocmd{\thebibliography}{\raggedright}{}{}
+
+%\usepackage{spacje}
+
+%definicje własnych poleceń
+%\newcommand{\R}{I\!\!R} %symbol liczb rzeczywistych, działa tylko w trybie matematycznym
+%\newtheorem{theorem}{Twierdzenie}[section] %nowe otoczenie do składania twierdzeń
+\begin{document}
+\bibliographystyle{plabbrv} %tylko gdy używamy BibTeXa, ustawia polski styl bibliografii
+
+\maketitle %polecenie generujące stronę tytułową
+
+\tableofcontents %spis treści
+
+\input{wstep.tex}
+\input{sterownik.tex}
+\input{aplikacja.tex}
+\input{podsumowanie.tex}
+
+\nocite{*}
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{\bibname}
+\bibliography{bibliografia}
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listfigurename}
+\listoffigures
+
+\newpage
+\phantomsection
+\addcontentsline{toc}{chapter}{\listtablename}
+\listoftables
+
+\end{document}
+
