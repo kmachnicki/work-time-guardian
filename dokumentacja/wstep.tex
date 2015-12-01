@@ -1,3 +1,29 @@
 \chapter{Wstęp}
 
+Jako zaliczenie kursu Zastosowania Systemów Wbudowanych należało zrealizować wybrany przez grupę projekt, dotyczący układów wbudowanych. Pracę wykonać można było wykorzystując platformy Raspberry Pi, Arduino, bądź Beagleboard. Przez naszą grupę wybrany został temat \emph{Badanie czasu pracy}, który zrealizowany został na płytce Raspberry Pi.
+
 \section{Cel i zakres pracy}
+
+Celem wybranego tematu było stworzenie projektu, który badałby godziny pracy pracowników danej placówki. Każdy pracownik przy wejściu oraz wyjściu odbijałby się przypisaną do siebie kartą, a system zliczałby godziny spędzone tego dnia i przedstawiał je w wygodnej formie dla administratora. Administrator mógłby dodawać pracowników oraz przypisać kartę do pracownika. W przypadku, gdy uprawniony użytkownik (taki, który znajduje się w bazie) odbije się w systemie, system poinformuje go o tym w sposób wizualny, a administrator będzie mógł zobaczyć w panelu dane pracownika i godzinę odbicia. W przypadku, gdy odbijana karta nie jest przypisana do żadnego pracownika, system w sposób wizualny zaalarmuje o tym.
+
+\section{Funkcjonalności}
+
+Lista funkcjonalności wymaganych do zrealizowania projektu:
+
+\begin{itemize}
+  \item Rozpoznawanie pracownika na podstawie odczytu z karty.
+  \item Zapis godziny wejścia i wyjścia pracownika.
+  \item Prezentacja danych zebranych w bazie danych.
+  \item Sygnalizacja przepuszczenia pracownika i błędnej karty.
+  \item Panel wyświetlania pracowników i godziny ich pracy.
+  \item Panel dodawania nowych pracowników i przypisywania do nich karty.
+\end{itemize}
+
+\section{Moduły}
+
+Aby zrealizować projekt, został on podzielony na dwa moduły:
+
+\begin{enumerate}
+  \item \textbf{Sterownik} - moduł obsługujący wczytywanie karty i zapisywanie danych do bazy, a także informowanie użytkownika o pomyślnej bądź niepomyślnej autoryzacji.
+  \item \textbf{Aplikacja} - panel administratora, gdzie wyświetlane są godziny pracy pracowników oraz gdzie można zarządzać pracownikami i przypisywać do nich karty.
+\end{enumerate}
