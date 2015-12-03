@@ -1,20 +1,37 @@
 \chapter{Aplikacja}
 \section{Program prezentacji danych}
 Aplikacja została wykonana z myślą o pracodawcy, który chciałby mieć podgląd obecnych pracowników w biurze, oraz podsumowanie przepracowanego czasu dla poszczególnego pracownika.
+
+Aplikacja składa się z kilku modułów:
+
+\begin{enumerate}
+  \item \texttt{main.py} - główny moduł systemu, odpowiada za uruchomienie aplikacji.
+  \item \texttt{workingTimeDialog.py} - obsługa bazy danych i zapytań użytkownika.
+  \item \texttt{uiWorkingTime.py} - moduł konfigurujący gradiczny interfejs.
+\end{enumerate}
+
+Program uruchamia się wpisując w konsoli:
+
+\begin{verbatim}
+python3 main.py
+\end{verbatim}
+\newpage
 \subsection{Podgląd obecnych pracowników}
 W tej części programu można podejżeć obecnych pracowników ich imię, nazwisko oraz czas przybycia.
 Widok odświeża się do pół sekundy.
+
 \begin{figure}[h!]
 	\centering
-	\includegraphics[]{img/present_employees.jpg}
+	\includegraphics[width=0.37\linewidth]{img/present_employees.jpg}
 	\label{fig:present_employees}
 	\caption[Obecni pracownicy]{Obecni pracownicy}
 \end{figure}
+
 \subsection{Podgląd prepracowanego czasu pracowników}
 Podgląd umożliwia wybrania przedziału czasu. Nastepnie wyświetli się imie, nazwisko oraz przepracowany czas.
 \begin{figure}[h!]
 	\centering
-	\includegraphics[]{img/time_worked.jpg}
+	\includegraphics[width=0.37\linewidth]{img/time_worked.jpg}
 	\label{fig:time_worked}
 	\caption[Przepracowany czas]{Przepracowany czas}
 \end{figure}
@@ -24,10 +41,11 @@ Ta część programu pozwala na dodawanie użytkowników. Wymagane są wszystkie
 Należy podać: Imię, Nazwisko, id taga rfid. email oraz hasło do systemu.
 \begin{figure}[h!]
 	\centering
-	\includegraphics[]{img/add_user.jpg}
+	\includegraphics[width=0.80\linewidth]{img/add_user.jpg}
 	\label{fig:add_user}
 	\caption[Dodaj pracownika]{Dodaj pracownika}
 \end{figure}
+
 \section{Technologie}
 Wykorzystane technologie:
 \begin{itemize}
