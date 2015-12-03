@@ -38,6 +38,11 @@
 \usepackage{rotating}
 \usepackage{changepage}
 
+\usepackage{booktabs}
+
+
+\topmargin -9mm
+
 %ustawienia spisu treści
 %\setcounter{tocdepth}{3}
 %\setcounter{secnumdepth}{3}
@@ -63,6 +68,8 @@
 	pdfproducer={TeXstudio}
 }
 \makeatother
+
+\usepackage{listings}
 
 \let\origappendix\appendix % save the existing appendix command
 \renewcommand\appendix{\clearpage\pagenumbering{Roman}\origappendix}

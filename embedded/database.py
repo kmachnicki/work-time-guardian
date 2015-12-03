@@ -20,8 +20,8 @@ class Database():
         try:
             self.connection = psycopg2.connect(self.connectionCredentials)
             self.cursor = self.connection.cursor()
-            self.cursor.execute("INSERT INTO Employee(First_Name, Last_Name, Email, Password, Tag_ID) "
-            "VALUES (%s,%s,%s,%s,%s);", ["Marian", "Kowalski", "marian.kowalski@gmail.com", "test123", "3119228225113"])
+            #self.cursor.execute("INSERT INTO Employee(First_Name, Last_Name, Email, Password, Tag_ID) "
+            #"VALUES (%s,%s,%s,%s,%s);", ["Marian", "Kowalski", "marian.kowalski@gmail.com", "test123", "3119228225113"])
         except Exception, e:
             logger.error("Unable to connect to database: " + str(e))
 
