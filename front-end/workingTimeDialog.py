@@ -25,10 +25,10 @@ class WorkingTimeDialog(QMainWindow, Ui_WorkingTime):
         self._tablePresentEmployee.setColumnWidth(2, 154)
         self._tablePresentEmployee.setHorizontalHeaderLabels(["First Name", "Last Name", "Arrival Time"])
 
-        cur = self.conn.cursor()
-        cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
-                    "VALUES (1, TIMESTAMP '2011-05-20 16:36:38');")
-        self.conn.commit()
+#        cur = self.conn.cursor()
+#        cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
+#                    "VALUES (5, TIMESTAMP '2013-06-01 08:00:00');")
+#        self.conn.commit()
 
     def GetPresentEmployees(self):
         cur = self.conn.cursor()
@@ -67,11 +67,11 @@ class WorkingTimeDialog(QMainWindow, Ui_WorkingTime):
             cur.execute("SELECT timestamp FROM Passage WHERE EmployeeEmployee_ID = %s AND timestamp > %s AND timestamp < %s;", [id, from_time, to_time])
             passages = cur.fetchall()
             count = len(passages)
-            i = int(1)
+            i = int(0)
             while i < count :
                 a = passages[i][0]
                 b = passages[i + 1][0]
-                if i == 1:
+                if i == 0:
                     time_elapsed = b - a
                 else:
                     time_elapsed = time_elapsed + b - a
@@ -102,8 +102,8 @@ class WorkingTimeDialog(QMainWindow, Ui_WorkingTime):
         #cur = self.conn.cursor()
  #       cur.execute("INSERT INTO Employee(First_Name, Last_Name, Email, Password) "
   #                  "VALUES ('aa', 'bb', 'cc', 'dd');")
-        cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
-                    "VALUES (3, TIMESTAMP '2011-05-16 15:36:38');")
+        #cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
+        #            "VALUES (3, TIMESTAMP '2011-05-16 15:36:38');")
  #       cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
  #                   "VALUES (1, TIMESTAMP '2011-05-16 15:39:38');")
 #        cur.execute("INSERT INTO Passage(EmployeeEmployee_ID, timestamp) "
