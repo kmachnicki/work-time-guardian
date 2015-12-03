@@ -13,6 +13,7 @@ class WorkingTimeDialog(QMainWindow, Ui_WorkingTime):
         self._refreshTimer = QtCore.QTimer(self)
         self._refreshTimer.start(500)
         self._refreshTimer.timeout.connect(self.RefreshPresentTable)
+        self._refreshTimer.timeout.connect(self.RefreshWorkedTimeTable)
         self._fromTimeEdit.setDateTime(datetime.now())
         self._toTimeEdit.setDateTime(datetime.now())
         self._toTimeEdit.dateTimeChanged.connect(self.RefreshWorkedTimeTable)
@@ -68,7 +69,8 @@ class WorkingTimeDialog(QMainWindow, Ui_WorkingTime):
             passages = cur.fetchall()
             count = len(passages)
             i = int(0)
-            while i < count :
+            time_elapsed = 0
+            while i < count - 1:
                 a = passages[i][0]
                 b = passages[i + 1][0]
                 if i == 0:
